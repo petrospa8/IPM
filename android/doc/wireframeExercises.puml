@@ -1,0 +1,24 @@
+@startsalt
+
+{#
+  {
+    <&arrow-thick-left> | . abs defined
+  }
+  {
+  Streamline your body, change your posture 
+  and add additional power to your every
+  routine with the Abs Defined workout
+  }
+  {
+  reverse crunches                                    .| <&chevron-bottom>
+  sitting twists | <&chevron-bottom>
+  butterfly sit-ups | <&chevron-bottom>
+  crunch kicks | <&chevron-bottom>
+  raised leg circles | <&chevron-bottom>
+  raised leg hold | <&chevron-bottom>
+  rest | <&chevron-bottom>
+  reverse crunches | <&chevron-bottom>
+  }
+}
+
+@endsalt

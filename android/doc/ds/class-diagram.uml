@@ -1,0 +1,52 @@
+@startuml
+
+class MyApp {
+
+}
+
+package GUI {
+	class HomePage {
+	}	
+}
+
+package BLoC {
+	class WorkoutBloc {
+
+	}
+}
+
+class Workout {
+
+}
+
+class Exercise {
+
+}
+package Repository {
+	class Repository {
+
+	}
+}
+
+package Network {
+	class DbHandler {
+
+	}
+}
+
+
+
+MyApp -down-> HomePage 
+HomePage -down-> WorkoutBloc
+HomePage -down-> Workout
+HomePage --> Exercise
+WorkoutBloc --> Workout
+WorkoutBloc -down-> Repository
+WorkoutBloc --> Exercise
+Repository -down-> DbHandler
+Repository -up-> Workout
+Repository -up-> Exercise
+
+hide members
+
+@enduml

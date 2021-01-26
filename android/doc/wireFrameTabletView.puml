@@ -1,0 +1,71 @@
+@startsalt
+
+{#
+	{	
+	{
+	Two minute workout 
+	}
+	{
+	Achilles
+	}
+	{
+	Full body
+	}
+	{
+	Standing abs
+	}
+	{
+	Airborne
+	}
+	{
+	Legs super series
+	}
+	{
+	Iron Man
+	}
+	} | { {
+		    <&arrow-thick-left> | . abs defined
+		}
+  		{
+    		Streamline your body, change your posture
+		and add additional power to your every
+		routine with the Abs Defined workout
+		}
+		{
+    		reverse crunches                                    .| <&chevron-bottom>
+		sitting twists | <&chevron-bottom>
+		butterfly sit-ups | <&chevron-bottom>
+		<b>raised leg circles</b> | <&chevron-bottom>
+		}
+		{!
+		{
+		.                               .
+		.
+		.          Image
+		.
+		.
+		} | {
+		10 reps                    .
+		.
+		Raised leg circles are
+		a great exercise for
+		showing in a diagram
+		}
+ 		}
+ 		{
+		.
+		.
+		.
+		.                             Video
+		.
+		.
+		.
+		}
+		{
+		crunch kicks extreme                              . | <&chevron-bottom>
+		}
+
+		}
+}
+
+@endsalt

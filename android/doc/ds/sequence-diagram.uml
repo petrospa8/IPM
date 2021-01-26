@@ -1,0 +1,33 @@
+@startuml
+actor User
+
+User -> MyApp: Open app
+MyApp -> HomePage: Build
+HomePage -> WorkoutBloc: Event<WorkoutFetch>
+participant ExerciseBloc
+WorkoutBloc -> Repository: obtainWorkouts()
+Repository -> DbHandler: yieldWorkoutList()
+database MongoDB
+DbHandler -> MongoDB: query
+return data
+Repository <-- DbHandler: Stream<Map<String, Dynamic>>
+
+WorkoutBloc <-- Repository: Stream<Workout>
+HomePage <-- WorkoutBloc: WorkoutState
+
+MyApp <-- HomePage: Widget
+MyApp --> User: Show HomePage
+
+User -> HomePage: Select workout
+HomePage -> ExerciseBloc: Event<ExerciseFetch>
+ExerciseBloc -> Repository: obtainExercisesFrom(Workout workout)
+Repository -> DbHandler: yieldExerciseList()
+DbHandler -> MongoDB: query
+
+return data
+Repository <- DbHandler: Stream<Map<String, dynamic>>
+ExerciseBloc <- Repository: Future<List<dynamic>> 
+HomePage <- ExerciseBloc: Widget
+MyApp <- HomePage: Widget
+User <- MyApp: Show workout view
+@enduml
