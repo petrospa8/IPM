@@ -1,0 +1,66 @@
+@startuml
+
+(*) --> "
+{{
+salt
+{
+    {+
+    ⠀                            IPMP1   ⠀| [Delete] |⠀- ◽<&circle-x>
+    ⠀                      Workouts List
+    }
+    {SI
+        {#
+            Image    | Name              | Publication date
+            <&code>  | Achilles          | Unavailable
+            <&code>  | abs defined       | 1/2/2016
+            <&code>  | Legs Super series | Unavailable
+            <&heart> | Standing Abs      | 12/12/2017
+            <&code>  | swan              | Unavailable
+            <&code>  | Airborne          | Unavailable
+        }
+    }
+}
+}}
+" as workout_table
+
+workout_table -down->"
+{{
+salt
+{
+    {+
+        [<] |
+        {⠀                     IPMP1
+        ⠀        Exercise list for Airborne    ⠀} |
+        - ◽<&circle-x>
+    }
+    {SI
+        {
+            {+
+                ⠀         ⠀
+                ⠀Image
+                ⠀         ⠀
+            } | {
+                ⠀Jump Squats         Move up
+                ⠀10 rep                Move down
+                ⠀<&link-intact> Video
+            }
+        }
+        ..
+            Stand tall with your feet hip-width apart.
+             at the hips to jump from a squat.
+        ..
+        --
+        Rest: 2 minutes                      Move up
+        ⠀                                          Move down
+        --
+        +---+   Sitting twists
+    }
+}
+}}
+" as exercise_lHingeist
+
+exercise_list -up-> workout_table
+exercise_list -right-> (*)
+workout_table -right-> (*)
+
+@enduml

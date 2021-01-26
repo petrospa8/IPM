@@ -1,0 +1,158 @@
+@startuml
+
+package IPMP1 {
+    package Model {
+        class Model <<Facade>> {
+            -MongoClient client
+            +Workout[] get_workout_list()
+            +WorkoutStep[] get_steps_of(String workout_name)
+            +delete_workout(String workout_name)
+        }
+
+        class WorkoutStep {
+            +String step_type
+            +String duration\n<<time or reps>>
+            +__init__(String step_type,\nString duration)
+        }
+
+        class Workout {
+            +String name
+            +Bytes image <<base64>>
+            +Date date
+            +__init__(String name, Bytes image, Date date)
+            {static} +Workout from-data(Bytes b64-data)
+        }
+
+        class Exercise {
+            +String name
+            +Bytes image <<base64>>
+            +String[] description
+            +String video
+            +String step_type = 'Exercise'
+            +__init__(String name, Bytes image,\nString description, String video, String duration)
+            {static} +Exercise from-data(Bytes b64-data,String duration)
+        }
+
+        class Rest {
+            +step_type = 'Rest'
+            +__init__(String duration)
+        }
+
+        Model o-- Workout
+        Model o-- WorkoutStep
+        Exercise --|> WorkoutStep
+        Rest -up-|> WorkoutStep
+    }
+
+    package View{
+        class View {
+            -Gtk.Window main_win
+            -Gtk.HeaderBar workout_tree_header
+            -Gtk.HeaderBar step_list_header
+            -Locale locale_setting
+            -WorkoutTree workout_tree_header
+            -Gtk.ScrolledWindow workout_tree_win
+            -Gtk.Button delete_button
+            -WorkoutStepList step_list
+            -Gtk.Button back_button
+            -Gtk.Spinner step_spinner
+            +__init__(Controller controller)
+            +view_workout_tree()
+            +load_workout_tree(Workout[] workouts)
+            +view_step_list(String workout_name, Step[] step_list)
+            +load_step_list(Step[] step_list)
+            +show_deletion(String workout_name)
+            +(String, Gtk.TreeIter) get_selected_workout()
+            {static} +Gdk.Pixbuf generate_pixbuf(b64-data, size)
+        }
+
+        class WorkoutTree {
+            +Gtk.TreeView view
+            -Gtk.TreeviewColumn[] columns
+            -Gtk.ListStore tree_model
+            +void __init__(Workout[] workouts)
+            +update(Workout[] workouts)
+            {static} -Gtk.ListStore store-from-list(Workout[] workouts)
+            {static} -GdkPixbuf.Pixbuf generate-pixbuf(Bytes b64-data)
+        }
+
+        note bottom of WorkoutTree
+        Due to the @Property decorator allowing us to 
+        substitute attributes for methods (getters/setters),
+        there are public attributes where one would
+        have used getters in a static language such as Java.
+        end note
+
+        class WorkoutStepList {
+            +Gtk.ListBox box
+            +reset()
+            +update(WorkoutStep[] step_list)
+        }
+
+        class ExerciseView {
+            +Gtk.ListBoxRow box
+            -View view
+            -Gtk.Grid grid
+            -Gtk.Image image 
+            -Gtk.Label name
+            -Gtk.Label description
+            -Gtk.Button up_button
+            -Gtk.Button down_button
+            +__init__(Exercise model, Controller controller, View view)
+        }
+
+        class RestView {
+            +Gtk.ListBoxRow box
+            -Gtk.Grid grid 
+            -Gtk.Label label 
+            -Gtk.Label duration
+            -Gtk.Button up_button
+            -Gtk.Button down_button
+            +__init__(Rest model)
+        }
+
+        class DeletionDialog {
+            -Gtk.Label label 
+            +__init__(Gtk.Widget parent, String workout_name)
+        }
+
+        class ErrorDialog {
+            -Gtk.Label label
+            +__init__(Gtk.Widget parent, Exception ex)
+        }
+
+        View *-- WorkoutTree
+        View *-- WorkoutStepList
+        View *-- DeletionDialog
+        View *-- ErrorDialog
+        WorkoutStepList o-- ExerciseView
+        WorkoutStepList o-up- RestView
+
+    }
+
+    package Controller {
+        class Controller {
+            +Workout[] request_workout_list()
+            +open_step_list(Gtk.Widget widget, row, col, View view)
+            +load_step_list(String name, Model model, View view)
+            +open_workout_tree(Gtk.Widget widget, View view)
+            +load_workout_tree(Model model, View view)
+            +workout_cursor_changed(Gtk.Widget widget, View view)
+            +delete_workout(Gtk.widget widget, View view)
+            +request_deletion(String workout, Gtk.TreeIter iterator, Model model, View view)
+            +move_step_up(Gtk.Widget widget, View view)
+            +move_step_down(Gtk.Widget widget, View view)
+        }
+    }
+
+    Controller <--> View
+    Controller --> Model
+}
+
+package MongoDB <<Database>> {
+    
+}
+
+Model -up-> MongoDB
+
+@enduml

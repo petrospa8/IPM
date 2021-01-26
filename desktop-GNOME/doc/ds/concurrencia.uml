@@ -1,0 +1,18 @@
+@startuml
+
+actor User
+
+
+loop
+User -> IPMP1 : Click delete button
+IPMP1 -> User : Show spinner and disable actions
+IPMP1 -> MongoDB : Delete the selected workout
+activate MongoDB
+return
+IPMP1 -> User : Show dialog informing of deletion
+IPMP1 -> User : Show the list of workouts\n\
+without the deleted one
+end
+
+	
+@enduml

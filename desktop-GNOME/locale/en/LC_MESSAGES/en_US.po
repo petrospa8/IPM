@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2019-10-31 20:24+0100\n"
+"PO-Revision-Date: 2019-10-31 20:40+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 2.2.4\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en_US\n"
+
+#: view.py:26
+msgid "Workouts List"
+msgstr ""
+
+#: view.py:26 view.py:43 view.py:56
+msgid "IPM P1"
+msgstr ""
+
+#: view.py:27
+msgid "Delete"
+msgstr ""
+
+#: view.py:91
+msgid "Exercise list for "
+msgstr ""
+
+#: view.py:145
+msgid "Image"
+msgstr ""
+
+#: view.py:145
+msgid "Name"
+msgstr ""
+
+#: view.py:145
+msgid "Publication date"
+msgstr ""
+
+#: view.py:214
+msgid "Duration not available"
+msgstr ""
+
+#: view.py:224
+msgid "Video"
+msgstr ""
+
+#: view.py:226
+msgid "Video not vailable"
+msgstr ""
+
+#: view.py:239
+msgid "Description unavailable"
+msgstr ""
+
+#: view.py:259
+msgid "Rest"
+msgstr ""
+
+#: view.py:274
+msgid "Notification"
+msgstr ""
+
+#: view.py:279
+msgid "You have deleted"
+msgstr ""
+
+#: view.py:287
+msgid "Error"
+msgstr ""

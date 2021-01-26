@@ -1,0 +1,45 @@
+@startuml
+
+actor User
+User -> IPMP1 : View workouts list\n\
+(opening the program)
+IPMP1 -> User : Show an empty window with a spinner
+database MongoDB
+activate IPMP1
+IPMP1 -> MongoDB: Query workouts
+activate MongoDB
+return Workouts
+IPMP1 -> User : Show the list of workouts\n\
+on the new window
+loop
+loop
+User -> IPMP1 : Click delete button
+IPMP1 -> User : Show spinner and disable actions
+IPMP1 -> MongoDB : Delete the selected workout
+activate MongoDB
+return
+IPMP1 -> User : Show dialog informing of deletion
+IPMP1 -> User : Show the list of workouts\n\
+without the deleted one
+end
+loop
+User -> IPMP1: Select a workout
+IPMP1 -> User : Empty the window showing a spinner
+IPMP1 -> MongoDB : Query steps for a workout
+activate MongoDB
+return Workout steps
+IPMP1 -> User : Show the list of steps\n\
+on the same window
+loop
+User -> IPMP1 : Click move up or down on a step
+IPMP1 -> User : Show the reoreded step list
+end
+User -> IPMP1 : Click the back button
+IPMP1 -> User : Show the list of workouts\n\
+on a the same window
+end
+end
+User -> IPMP1 : Close the window
+deactivate IPMP1
+	
+@enduml

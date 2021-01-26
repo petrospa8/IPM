@@ -1,0 +1,34 @@
+Para llevar a cabo la paralelización de las operaciones realizadas contra
+la base de datos hemos usado la librería threading de python,
+así como la librería GLib de pyGtk.
+
+En primer lugar, cuando se abre el programa por primera vez,
+desde controller se llama a través de un thread a la función de model que
+accede a la base de datos para obtener las rutinas.
+
+Para cargar la lista de ejercicios de una rutina se llama desde controller.py
+a una funcion llamada "load_step_list" a través de un thread, esta busca en
+la base de datos la información de los ejercicios concurrentemente.
+Mediante GLib.idle_add() se llaman a las funciones de la view que habilitan
+el botón que permite volver a la vista de rutinas y se añaden a la ventana los
+elementos de la lista.
+
+En controller.py, para eliminar una rutina se crea una thread que ejecuta
+la función "request_deletion", la cual efectúa llamadas a model para hacer
+el borrado en la base de datos, despúes, usando GLib.idle_add se ejecutan
+las llamadas pertinentes al view, esconder el spinner de carga, se elimina
+de la lista el elemento seleccionado, se muestra un diálogo para proporcionar
+feedback del borrado.
+
+Los errores de borrado "doble" de una rutina se evitan debido a que cuando se
+inicia el proceso de borrado concurrente, se deshabilita el botón de borrado
+y el acceso a otras rutinas hasta que el proceso finalize o muestre un error.
+
+Debido a que el programa no elimina las rutinas de la vista hasta recibir
+la finalización correcta de la operación en la base de datos, no hemos
+detectado problemas de sincronización a la hora de mostrar rutinas.
+
+Las operaciones concurrentes relacionadas directamente con la vista y con Gtk
+se realizan con GLib ya que si se realizasen con threading se producirian
+runtime errors de diversa índole debido a que Gtk no es thread safe.
+

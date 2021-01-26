@@ -1,0 +1,25 @@
+* Buttons which have a destructive consequence, such as removing or
+deleting a content item, can be given a destructive style.
+This highlights the button by coloring it, and acts as a warning
+to the user.
+
+view.py (line 29)
+self.delete_button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION)
+
+* Make invalid buttons insensitive, rather than popping up an error
+message when the user clicks them.
+
+Due to our implementation of showing the list of exercises of a workout,
+in which the information of the workouts is completely hidden by the new
+view, the 'Delete' button disappears when exercises are shown.
+Therefore, we do not need to disable it.
+
+view.py (line 51)
+self.step_list_header.set_subtitle('Exercise list for ' + workout_name)
+ 
+
+In a similar fashion, the "back" button hides from view when
+unnecessary, because the headerbar changes.
+
+view.py (line)
+self.main_win.set_titlebar(self.workout_tree_header)
